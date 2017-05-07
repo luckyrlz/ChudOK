@@ -17,12 +17,14 @@ export default styles = StyleSheet.create({
   },
   LoginTextInput: {
     height: 20,
-    width: 170,
+    width: 230,
     fontSize: 12,
     alignSelf: 'center',
   },
   Hairline: {
     height: 1,
+    width: 230,
+    alignSelf: 'center',
     backgroundColor: 'black',
   },
   LoginTextInputContainer: {
@@ -42,5 +44,6 @@ export default styles = StyleSheet.create({
   CreateAccountText: {
     marginTop: 15,
     color: '#487891',
+    alignSelf: 'center'
   }
 });
