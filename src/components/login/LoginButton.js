@@ -9,7 +9,7 @@ export default class LoginButton extends Component {
   render() {
 
     return(
-      <TouchableOpacity style={styles.LoginButton} onClick={this.props.onClick}>
+      <TouchableOpacity style={styles.LoginButton} onPress={this.props.onPress}>
         <Text style={styles.LoginButtonText}>
           {this.props.text}
         </Text>

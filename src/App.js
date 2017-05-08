@@ -3,8 +3,10 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  Animated
+  Animated,
+  Alert
 } from 'react-native';
+import Meteor from 'react-native-meteor';
 import Dimensions from 'Dimensions';
 import ViewContainer from './components/ViewContainer';
 import LoginTextInput from './components/login/LoginTextInput';
@@ -16,8 +18,8 @@ const {
   width,
 } = Dimensions.get('window');
 
-export default class App extends Component {
-  constructor(props){
+class App extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -31,10 +33,11 @@ export default class App extends Component {
         x: 0,
         y: -100,
       })
-    }
+    };
+    this.loginButtonPress = this.loginButtonPress.bind(this);
   }
 
-  animatePage(){
+  animatePage() {
     Animated.sequence([
       Animated.timing(
         this.state.logoFade,
@@ -58,7 +61,7 @@ export default class App extends Component {
     ]).start();
   }
 
-  animateForm(){
+  animateForm() {
     return Animated.parallel([
       Animated.timing(
         this.state.formFade,
@@ -82,18 +85,32 @@ export default class App extends Component {
     this.animatePage();
   }
 
+  loginButtonPress() {
+    console.log(this.email.value, this.password.value);
+    Meteor.loginWithPassword(
+      this.email.value,
+      this.password.value,
+      error => {
+        Alert.alert(
+          'Login',
+          error ? 'Success': `Failure ${error.reason}`
+        );
+      }
+    )
+  }
+
   render() {
     return (
       <ViewContainer>
         <Animated.Image
-            source={require('../Assets/icon/iTunesArtwork@2x.png')}
-            style={[
-              styles.LoginLogo,
-              {
-                opacity: this.state.logoFade,
-                transform: this.state.logoPos.getTranslateTransform(),
-              }
-            ]}
+          source={require('../Assets/icon/iTunesArtwork@2x.png')}
+          style={[
+            styles.LoginLogo,
+            {
+              opacity: this.state.logoFade,
+              transform: this.state.logoPos.getTranslateTransform(),
+            }
+          ]}
         />
         <Animated.View
           style={
@@ -104,15 +121,15 @@ export default class App extends Component {
           }
         >
           <LoginTextInput
-              ref={ el => this.email = el }
-              placeholder="EMAIL"
+            ref={ el => this.email = el }
+            placeholder="EMAIL"
           />
           <LoginTextInput
-              ref={ el => this.password = el }
-              placeholder="PASSWORD"
-              secure
+            ref={ el => this.password = el }
+            placeholder="PASSWORD"
+            secure
           />
-          <LoginButton/>
+          <LoginButton onPress={this.loginButtonPress}/>
           <TouchableOpacity>
             <Text style={styles.CreateAccountText}>
               create account
@@ -123,3 +140,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;

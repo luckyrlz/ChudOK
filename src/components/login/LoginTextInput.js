@@ -44,6 +44,8 @@ export default class LoginTextInput extends Component {
             style={styles.LoginTextInput}
             onChangeText={this._onChange}
             value={this.state.value}
+            autoCorrect={false}
+            autoCapitalize='none'
         />
         <View style={styles.Hairline} />
       </View>
