@@ -7,7 +7,7 @@ import App from './src/App';
 
 export default class ChudOK extends Component {
   componentWillMount(){
-    Meteor.connect('ws://192.168.10.109:3000/websocket');
+    Meteor.connect('ws://10.10.11.59:3000/websocket');
   }
 
   render() {
